@@ -1,0 +1,38 @@
+# ---
+# - hosts: bucketlist
+#   become: yes
+#   become_user: root
+
+#   tasks:
+#   - name: Install nginx and postgres
+#     apt:
+#       name: "{{ item }}"
+#       state: present
+#     with_items:
+#     - nginx
+#     - postgresql
+#     - uwsgi
+#     - ntp
+
+#   - name: Start nginx and postgresql
+#     service: 
+#       name: "{{ item }}" 
+#       state: started 
+#       enabled: true
+#     with_items:
+#     - nginx
+#     - postgresql
+#     - uwsgi
+#     - ntpd
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Ensure NTP (for time synchronization) is installed.
+    apt: name=ntp state=present
+  - name: Ensure NTP is running.
+    service: name=ntp state=started enabled=yes
+  - name: Ensure nginx is installed.
+    apt: name=nginx state=present
+  - name: Ensure nginx is running.
+    service: name=nginx state=started enabled=yes
