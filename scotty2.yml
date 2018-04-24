@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Ensure NTP (for time synchronization) is installed.
+    apt: name=ntp state=present
+  - name: Ensure NTP is running.
+    service: name=ntp state=started enabled=yes
+  - name: Ensure uwsgi is installed.
+    apt: name=uwsgi state=present
+  - name: Ensure uwsgi is running.
+    service: name=uwsgi state=started enabled=yes
+    
