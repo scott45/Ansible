@@ -1,0 +1,13 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+  - name: Ensure NTP (for time synchronization) is installed.
+    apt: name=ntp state=present
+  - name: Ensure postgresql is running.
+    service: name=ntp state=started enabled=yes
+  - name: Ensure postgresql is installed.
+    apt: name=postgresql state=present
+  - name: Ensure postgresql is running.
+    service: name=postgresql state=started enabled=yes
+    
